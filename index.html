@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Красный Рассвет — Кодекс (версия 2)</title>
+  <meta name="description" content="Кодекс Королевства Красный Рассвет — версия 2 (RU/EN/TR/VI/FR)" />
+  <style>
+    :root{--bg:#0b0d10;--card:#14181f;--muted:#8fa1b3;--text:#e8eef4;--accent:#e53e3e;--ok:#38b2ac;--warn:#f6ad55}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;background:linear-gradient(180deg,#0b0d10,#10141a 40%,#0b0d0d);color:var(--text)}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    header{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:40px;height:40px;border-radius:10px;background:conic-gradient(from 210deg at 50% 50%,#3b0d0d 0deg,#e53e3e 120deg,#ffbaba 180deg,#3b0d0d 360deg);box-shadow:0 0 0 2px rgba(229,62,62,.3),0 8px 30px rgba(229,62,62,.35)}
+    h1{font-size:clamp(20px,3vw,28px);margin:0}
+    .lang{display:flex;gap:8px;align-items:center}
+    select{background:var(--card);color:var(--text);border:1px solid #2a3340;padding:10px 12px;border-radius:12px;outline:none}
+    .card{background:linear-gradient(180deg,#14181f,#10151b);border:1px solid #202734;border-radius:18px;padding:20px;margin-top:18px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .badge{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;background:#1d232f;border:1px solid #2a3340;color:#b9c8d8;font-weight:600}
+    .badge .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+    .rules h2{margin:14px 0 8px;font-size:20px}
+    .rules p,.rules li{color:#c8d6e5;line-height:1.6}
+    .rules ul{padding-left:20px}
+    .hero{margin-top:18px;display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+    @media (max-width:880px){.hero{grid-template-columns:1fr}}
+    .divider{height:1px;background:linear-gradient(90deg,transparent,#2a3340,transparent);margin:12px 0}
+    footer{opacity:.8;margin:24px 0 8px;text-align:center;font-size:12px;color:#9db0c4}
+    a.btn{display:inline-flex;gap:10px;align-items:center;text-decoration:none;background:linear-gradient(180deg,#e53e3e,#c53030);color:white;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.08);box-shadow:0 10px 20px rgba(229,62,62,.35)}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap}
+    .muted{color:var(--muted)}
+    .callout{border-left:4px solid var(--accent);background:#1a202c;padding:10px 12px;border-radius:10px}
+    .ok{border-left-color:var(--ok)}
+    .warn{border-left-color:var(--warn)}
+    .small{font-size:.92em}
+    .kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#9db0c4}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>«Красный Рассвет» · Red Dawn</h1>
+          <div class="muted small" id="subtitle">Кодекс Королевства · Версия 2</div>
+        </div>
+      </div>
+      <div class="lang">
+        <label for="langPick" class="muted">Language / Язык</label>
+        <select id="langPick" aria-label="Select language">
+          <option value="ru">Русский</option>
+          <option value="en">English</option>
+          <option value="tr">Türkçe</option>
+          <option value="vi">Tiếng Việt</option>
+          <option value="fr">Français</option>
+        </select>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="card">
+        <span class="badge"><span class="dot"></span><span id="goal-badge">Введение</span></span>
+        <div class="rules" id="intro"></div>
+        <div class="divider"></div>
+        <div class="toolbar">
+          <a class="btn" id="copyBtn" href="#">📋 <span data-i18n="copy">Скопировать</span></a>
+          <a class="btn" id="printBtn" href="#">🖨️ <span data-i18n="print">Печать / PDF</span></a>
+        </div>
+      </div>
+      <div class="card callout ok" id="meta">
+        <div class="small" id="metaText">ТОП‑7: союз и единый чат (R5/R4). Пир грабителей: не жечь >600К (кроме Leader1234). Академии трогать запрещено. Ресурсные точки: можно атаковать чужаков на вашей территории.</div>
+      </div>
+    </section>
+
+    <section class="card rules" id="rules"></section>
+
+    <footer>
+      © <span id="year"></span> Red Dawn Alliance. Static page — host anywhere. v2
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
