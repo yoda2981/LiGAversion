@@ -32,7 +32,7 @@
     .muted{color:var(--muted)}
     .callout{border-left:4px solid var(--accent);background:#1a202c;padding:10px 12px;border-radius:10px}
     .ok{border-left-color:var(--ok)}
-    .warn{border-left-color:var(--warn)}
+    .warn{border-left-color:var(--warn)} 
     .small{font-size:.92em}
     .kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#9db0c4}
   </style>
@@ -82,7 +82,278 @@
   </div>
 
   <script>
+    const t = {
+      ru: {
+        introBadge:"Введение",
+        intro:`<p class='kicker'>Всем доброго времени суток, уважаемые дамы и господа!</p>
+        <p>Ниже представлена обновлённая версия кодекса королевства. Просьба ознакомиться и соблюдать.</p>`,
+        sections:[
+          {h:"Пункт 1. Уважение и поведение", items:[
+            "Все игроки обязаны проявлять взаимное уважение, независимо от пола, возраста, расы, национальности или языка общения.",
+            "Любые угрозы, оскорбления, провокации, а также словесные нападения запрещены в любой форме."
+          ]},
+          {h:"Пункт 2. Пакт о не нападении топ‑7 племён", items:[
+            "Между семью сильнейшими племенами королевства установлен официальный союз.",
+            "Для координации действий и решения общих вопросов создан единый чат, в который входят лидеры (R5) и их помощники (R4) каждого из топ‑7 племён.",
+            "Все вопросы решаются дипломатическим путём внутри этого чата."
+          ]},
+          {h:"Пункт 3. Отношение к игрокам вне топ‑7 племён", items:[
+            "Игроки с дефолтными именами (Leader1234) могут быть атакованы без ограничений, независимо от того, состоят ли они в каком-либо племени или нет.",
+            "Нападения без причины на другие города запрещены. Исключение — если игрок подвергся нападению, он имеет право ответить атакой.",
+            "Сбор ресурсов: если сторонний игрок собирает ресурсы на территории вашего племени, он может быть законно атакован на той ресурсной точке, где он собирает ресурс.",
+            "Во время этапа «Пир грабителей» запрещено сжигать города с силой выше 600К. Исключение — города с именем Leader1234 могут быть атакованы.",
+            "В день «Пира грабителей» разрешается атаковать любых игроков на ресурсных точках, независимо от их принадлежности к племени."
+          ]},
+          {h:"Пункт 4. Академии топ‑племён", items:[
+            "Академии топ‑племён запрещено атаковать. Любое нападение на академию рассматривается как нападение на основное племя.",
+            "Важно: в описании основного племени и в описании его академии должно быть чётко указано, что академия принадлежит данному племени.",
+            "Название академии: имя академии должно совпадать с именем основного племени с добавлением приставки <b>academy</b> для ясности."
+          ]},
+          {h:"Пункт 5. Ответственность и наказания", items:[
+            "За несоблюдение правил игрок получает одно предупреждение.",
+            "Второго предупреждения не будет: при повторном нарушении замок игрока сжигается, а сам игрок исключается из племени.",
+            "Ни одно другое племя не имеет права принимать этого игрока в свои ряды.",
+            "Все мы люди и можем ошибаться — в исключительных случаях наказание может быть смягчено."
+          ]},
+          {h:"Заключение. Смысл и цель правил", items:[
+            "Все правила королевства 599 созданы для единства, силы и роста нашего сервера.",
+            "Мы готовимся к КВК, поэтому каждый игрок и каждое племя должны наращивать мощь и развивать потенциал.",
+            "Бессмысленные нападения и поджоги ослабляют общее могущество. Стимулируем рост других игроков — их сила это наша сила на КВК.",
+            "Соблюдение правил ведёт к общему успеху и делает королевство мощным и стабильным."
+          ]}
+        ],
+        copy:"Скопировать", print:"Печать / PDF",
+        meta:"ТОП‑7: союз и единый чат (R5/R4). Пир грабителей: не жечь >600К (кроме Leader1234). Академии защищены. Ресурсные точки: можно бить чужаков на вашей территории."
+      },
+      en:{
+        introBadge:"Introduction",
+        intro:`<p class='kicker'>Good day to everyone, ladies and gentlemen!</p>
+        <p>Below is the updated Kingdom Code. Please review and follow it.</p>`,
+        sections:[
+          {h:"Section 1. Respect & Conduct", items:[
+            "All players must show mutual respect regardless of gender, age, race, nationality, or language.",
+            "Any threats, insults, provocations, or verbal attacks are prohibited in any form."
+          ]},
+          {h:"Section 2. Non‑Aggression Pact of the Top‑7 Tribes", items:[
+            "An official alliance is established among the seven strongest tribes of the kingdom.",
+            "A single coordination chat is created for leaders (R5) and deputies (R4) of each Top‑7 tribe to handle shared matters.",
+            "All issues are resolved diplomatically within this chat."
+          ]},
+          {h:"Section 3. Players Outside the Top‑7 Tribes", items:[
+            "Players with default names (Leader1234) may be attacked without restrictions, whether or not they belong to a tribe.",
+            "Unprovoked attacks on other cities are forbidden. Exception: if attacked first, a player has the right to retaliate.",
+            "Resource gathering: if an outsider gathers resources on your tribe’s territory, they may be lawfully attacked at that resource node.",
+            "During the ‘Feast of Raiders’ stage, it is forbidden to burn cities with power above 600K. Exception: cities named Leader1234 may be attacked.",
+            "On the day of the Feast of Raiders, it is allowed to attack any players at resource nodes, regardless of tribe membership."
+          ]},
+          {h:"Section 4. Academies of Top Tribes", items:[
+            "Attacking academies of top tribes is prohibited. Any attack on an academy is treated as an attack on its main tribe.",
+            "Important: the main tribe’s description and the academy’s description must clearly state the affiliation.",
+            "Academy naming: use the main tribe’s name with the suffix <b>academy</b> for clarity."
+          ]},
+          {h:"Section 5. Responsibility & Penalties", items:[
+            "For a rule violation, the player receives one warning.",
+            "There is no second warning: on repeated violation, the player’s castle is burned and the player is expelled from the tribe.",
+            "No other tribe has the right to accept this player.",
+            "We are all human — in exceptional cases, punishment may be mitigated."
+          ]},
+          {h:"Conclusion. Meaning & Purpose of the Rules", items:[
+            "All rules of Kingdom 599 are designed for unity, strength, and growth of our server.",
+            "We are preparing for KvK, so every player and tribe must build power and potential.",
+            "Senseless attacks and burning cities undermine our overall strength. Encourage growth — their strength is our strength in KvK.",
+            "Following these rules lets us succeed together and keeps the kingdom strong and stable."
+          ]}
+        ],
+        copy:"Copy", print:"Print / PDF",
+        meta:"Top‑7: alliance & unified chat (R5/R4). Feast of Raiders: don’t burn >600K (except Leader1234). Academies protected. Resource nodes: outsiders on your land may be hit."
+      },
+      tr:{
+        introBadge:"Giriş",
+        intro:`<p class='kicker'>Herkese selamlar, değerli hanımefendiler ve beyefendiler!</p>
+        <p>Aşağıda krallık tüzüğünün güncellenmiş sürümü yer alıyor. Lütfen okuyup uygulayın.</p>`,
+        sections:[
+          {h:"Madde 1. Saygı ve Davranış", items:[
+            "Tüm oyuncular; cinsiyet, yaş, ırk, milliyet veya dil fark etmeksizin birbirine <b>saygı</b> göstermek zorundadır.",
+            "<b>Tehdit, hakaret, provokasyon</b> ve sözlü saldırılar her türüyle <b>yasaktır</b>."
+          ]},
+          {h:"Madde 2. İlk‑7 Kabile Saldırmazlık Paktı", items:[
+            "Krallığın en güçlü yedi kabilesi arasında resmî bir ittifak kurulmuştur.",
+            "Her İlk‑7 kabilenin liderleri (R5) ve yardımcıları (R4) için ortak konuları koordine eden <b>tek bir sohbet</b> bulunur.",
+            "Tüm meseleler bu sohbette <b>diplomatik</b> olarak çözülür."
+          ]},
+          {h:"Madde 3. İlk‑7 dışındaki oyuncular", items:[
+            "Varsayılan isimli oyuncular (Leader1234) kabilede olsalar da olmasalar da <b>sınırsızca saldırıya</b> uğrayabilir.",
+            "<b>Sebepsiz</b> şehir saldırıları yasaktır. İstisna: Eğer önce saldırıya uğradıysanız <b>misilleme</b> hakkınız vardır.",
+            "Kaynak toplama: Yabancı bir oyuncu kabilenizin bölgesinde kaynak topluyorsa, <b>topladığı düğümde</b> yasal olarak saldırılabilir.",
+            "‘Yağmacıların Şöleni’ aşamasında <b>600K güç</b> üzerindeki şehirleri yakmak yasaktır. İstisna: adı Leader1234 olan şehirler saldırılabilir.",
+            "Yağmacıların Şöleni gününde, kabile fark etmeksizin <b>her oyuncuya</b> kaynak noktalarında saldırmak serbesttir."
+          ]},
+          {h:"Madde 4. Üst Kabilelerin Akademileri", items:[
+            "Üst kabilelerin akademilerine saldırmak yasaktır. Akademiye saldırı, ana kabileye saldırı sayılır.",
+            "Önemli: Ana kabilenin ve akademinin açıklamasında bağ <b>açıkça</b> belirtilmelidir.",
+            "İsimlendirme: Ana kabilenin adına <b>academy</b> soneki eklenmelidir."
+          ]},
+          {h:"Madde 5. Sorumluluk ve Yaptırımlar", items:[
+            "Kural ihlalinde oyuncuya bir <b>uyarı</b> verilir.",
+            "İkinci uyarı yoktur: Tekrarında oyuncunun kalesi yakılır ve kabileden atılır.",
+            "Hiçbir başka kabile bu oyuncuyu kabul edemez.",
+            "Hata insan içindir — istisnai durumlarda ceza hafifletilebilir."
+          ]},
+          {h:"Sonuç. Kuralların Amacı", items:[
+            "Krallık 599’un kuralları birlik, güç ve büyüme için oluşturulmuştur.",
+            "KvK’ya hazırlanıyoruz; her oyuncu ve kabile gücünü artırmalı, potansiyelini geliştirmelidir.",
+            "Anlamsız saldırılar ve şehir yakmalar genel gücümüzü zayıflatır. Büyümeyi teşvik edin — onların gücü KvK’da bizim gücümüzdür.",
+            "Kurallara uymak ortak başarı ve istikrarlı bir krallık sağlar."
+          ]}
+        ],
+        copy:"Kopyala", print:"Yazdır / PDF",
+        meta:"İlk‑7: ittifak & birleşik sohbet (R5/R4). Yağmacıların Şöleni: >600K şehir yakma. Akademiler korunur. Kaynak düğümlerinde yabancılara vurulabilir."
+      },
+      vi:{
+        introBadge:"Giới Thiệu",
+        intro:`<p class='kicker'>Xin chào tất cả quý anh chị!</p>
+        <p>Dưới đây là phiên bản cập nhật của Bộ Quy Tắc vương quốc. Vui lòng đọc và tuân thủ.</p>`,
+        sections:[
+          {h:"Mục 1. Tôn trọng & Ứng xử", items:[
+            "Mọi người chơi phải tôn trọng lẫn nhau, bất kể giới tính, tuổi, chủng tộc, quốc tịch hay ngôn ngữ.",
+            "Mọi hành vi đe doạ, xúc phạm, khiêu khích hay tấn công bằng lời nói đều bị cấm dưới mọi hình thức."
+          ]},
+          {h:"Mục 2. Hiệp ước Không Tấn Công của Top‑7 Bộ Tộc", items:[
+            "Một liên minh chính thức được thiết lập giữa bảy bộ tộc mạnh nhất của vương quốc.",
+            "Có <b>một phòng chat chung</b> để điều phối giữa lãnh đạo (R5) và phụ tá (R4) của mỗi bộ tộc Top‑7.",
+            "Mọi vấn đề được giải quyết bằng <b>ngoại giao</b> trong phòng chat này."
+          ]},
+          {h:"Mục 3. Người chơi ngoài Top‑7", items:[
+            "Người chơi có tên mặc định (Leader1234) có thể bị tấn công không hạn chế, dù có hay không thuộc bộ tộc nào.",
+            "Cấm tấn công vô cớ vào các thành phố khác. Ngoại lệ: nếu bị tấn công trước, người chơi có quyền phản công.",
+            "Thu thập tài nguyên: nếu người ngoài thu thập trên lãnh thổ của bộ tộc bạn, có thể tấn công <b>ngay tại điểm tài nguyên đó</b>.",
+            "Trong giai đoạn ‘Tiệc Cướp Bóc’, cấm đốt thành có <b>sức mạnh trên 600K</b>. Ngoại lệ: thành có tên Leader1234 được phép tấn công.",
+            "Vào ngày ‘Tiệc Cướp Bóc’, được phép tấn công <b>bất kỳ người chơi nào</b> tại điểm tài nguyên, không xét bộ tộc."
+          ]},
+          {h:"Mục 4. Học viện của các bộ tộc mạnh", items:[
+            "Cấm tấn công các bang học viện. Mọi tấn công vào học viện được xem như tấn công vào bang chính.",
+            "Quan trọng: mô tả của bang chính và bang học viện phải <b>nêu rõ</b> quan hệ trực thuộc.",
+            "Đặt tên: dùng tên bang chính kèm hậu tố <b>academy</b> để rõ ràng."
+          ]},
+          {h:"Mục 5. Trách nhiệm & Hình phạt", items:[
+            "Vi phạm sẽ nhận <b>một cảnh cáo</b>.",
+            "Không có cảnh cáo thứ hai: tái phạm sẽ bị đốt thành và trục xuất khỏi bang.",
+            "Không bang nào khác được quyền nhận người chơi này.",
+            "Tất cả chúng ta đều có thể mắc lỗi — trong trường hợp đặc biệt, hình phạt có thể được giảm nhẹ."
+          ]},
+          {h:"Kết luận. Ý nghĩa & Mục tiêu", items:[
+            "Các quy tắc của Vương quốc 599 nhằm mục tiêu đoàn kết, sức mạnh và tăng trưởng của máy chủ.",
+            "Chúng ta chuẩn bị cho KvK, vì vậy mọi người chơi và bang đều cần gia tăng sức mạnh và tiềm năng.",
+            "Tấn công vô nghĩa và đốt thành làm suy yếu sức mạnh chung. Hãy khuyến khích phát triển — sức mạnh của họ là sức mạnh của ta trong KvK.",
+            "Tuân thủ quy tắc giúp chúng ta thành công và giữ vững vương quốc mạnh, ổn định."
+          ]}
+        ],
+        copy:"Sao chép", print:"In / PDF",
+        meta:"Top‑7: liên minh & chat chung (R5/R4). Tiệc Cướp Bóc: không đốt >600K (trừ Leader1234). Học viện được bảo vệ. Có thể đánh người ngoài tại điểm tài nguyên."
+      },
+      fr:{
+        introBadge:"Introduction",
+        intro:`<p class='kicker'>Bonjour à toutes et à tous, mesdames et messieurs !</p>
+        <p>Vous trouverez ci‑dessous la version mise à jour du Code du royaume. Merci de le lire et de le respecter.</p>`,
+        sections:[
+          {h:"Article 1. Respect et Comportement", items:[
+            "Tous les joueurs doivent se respecter mutuellement, quel que soit le genre, l’âge, la race, la nationalité ou la langue.",
+            "Toute menace, insulte, provocation ou attaque verbale est interdite sous quelque forme que ce soit."
+          ]},
+          {h:"Article 2. Pacte de non‑agression des 7 meilleurs tribus", items:[
+            "Une alliance officielle est établie entre les sept tribus les plus fortes du royaume.",
+            "Un <b>chat unique</b> sert à la coordination des leaders (R5) et adjoints (R4) de chaque tribu du Top‑7.",
+            "Toutes les questions se règlent <b>par la diplomatie</b> dans ce chat."
+          ]},
+          {h:"Article 3. Joueurs hors Top‑7", items:[
+            "Les joueurs portant un nom par défaut (Leader1234) peuvent être attaqués sans restriction, qu’ils appartiennent ou non à une tribu.",
+            "Les attaques non provoquées contre d’autres villes sont interdites. Exception : si vous êtes attaqué, vous avez le droit de riposter.",
+            "Récolte de ressources : si un étranger récolte sur votre territoire tribal, il peut être attaqué <b>sur ce même gisement</b>.",
+            "Pendant la ‘Fête des Pillards’, il est interdit de brûler des villes de <b>puissance supérieure à 600K</b>. Exception : les villes nommées Leader1234 peuvent être attaquées.",
+            "Le jour de la Fête des Pillards, il est permis d’attaquer <b>tout joueur</b> sur les gisements, quelle que soit sa tribu."
+          ]},
+          {h:"Article 4. Académies des tribus majeures", items:[
+            "Il est interdit d’attaquer les académies. Toute attaque contre une académie est considérée comme une attaque contre la tribu principale.",
+            "Important : la description de la tribu principale et celle de l’académie doivent <b>indiquer clairement</b> l’affiliation.",
+            "Nom : utiliser le nom de la tribu principale avec le suffixe <b>academy</b> pour plus de clarté."
+          ]},
+          {h:"Article 5. Responsabilité et Sanctions", items:[
+            "En cas d’infraction, le joueur reçoit un <b>avertissement</b>.",
+            "Pas de second avertissement : en cas de récidive, le château est brûlé et le joueur est exclu de la tribu.",
+            "Aucune autre tribu n’a le droit d’accepter ce joueur.",
+            "Nous restons humains — dans des cas exceptionnels, la sanction peut être atténuée."
+          ]},
+          {h:"Conclusion. Sens et Objectif des Règles", items:[
+            "Toutes les règles du Royaume 599 visent l’unité, la force et la croissance du serveur.",
+            "Nous nous préparons au KvK ; chaque joueur et tribu doit accroître sa puissance et son potentiel.",
+            "Les attaques inutiles et les incendies affaiblissent notre force commune. Encourageons la progression — leur force est la nôtre au KvK.",
+            "Le respect de ces règles nous permet de réussir ensemble et d’assurer un royaume fort et stable."
+          ]}
+        ],
+        copy:"Copier", print:"Imprimer / PDF",
+        meta:"Top‑7 : alliance & chat unifié (R5/R4). Fête des Pillards : ne pas brûler >600K (sauf Leader1234). Académies protégées. Les étrangers peuvent être frappés sur les gisements."
+      }
+    };
+
+    const langPick = document.getElementById('langPick');
+    const rulesEl = document.getElementById('rules');
+    const introEl = document.getElementById('intro');
+    const introBadge = document.getElementById('goal-badge');
+    const metaText = document.getElementById('metaText');
+    const subtitle = document.getElementById('subtitle');
+    const year = document.getElementById('year');
+    const copyBtn = document.getElementById('copyBtn');
+    const printBtn = document.getElementById('printBtn');
+
+    function render(lang){
+      const L = t[lang] || t.ru;
+      introBadge.textContent = L.introBadge;
+      introEl.innerHTML = L.intro;
+      rulesEl.innerHTML = '';
+      L.sections.forEach(sec=>{
+        const s = document.createElement('section');
+        const h = document.createElement('h2'); h.innerHTML = sec.h; s.appendChild(h);
+        const ul = document.createElement('ul');
+        sec.items.forEach(it=>{ const li=document.createElement('li'); li.innerHTML=it; ul.appendChild(li); });
+        s.appendChild(ul);
+        rulesEl.appendChild(s);
+      });
+      document.querySelectorAll('[data-i18n="copy"]').forEach(n=>n.textContent=L.copy);
+      document.querySelectorAll('[data-i18n="print"]').forEach(n=>n.textContent=L.print);
+      metaText.textContent = L.meta;
+      subtitle.textContent = lang==='ru'? 'Кодекс Королевства · Версия 2' : 'Kingdom Code · Version 2';
+    }
+
+    function toPlainText(){
+      const activeLang = langPick.value;
+      const L = t[activeLang] || t.ru;
+      let txt = `Red Dawn — Rules v2 (lang: ${activeLang})\n\n`;
+      const temp = document.createElement('div');
+      temp.innerHTML = L.intro; txt += temp.textContent.trim() + '\n\n';
+      L.sections.forEach(sec=>{
+        const s = document.createElement('div'); s.innerHTML = sec.h; const title = s.textContent.trim();
+        txt += title + '\n';
+        sec.items.forEach((it)=>{ const x=document.createElement('div'); x.innerHTML=it; txt += `  - ${x.textContent.trim()}\n`; });
+        txt += '\n';
+      });
+      return txt;
+    }
+
+    copyBtn.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const txt = toPlainText();
+      navigator.clipboard.writeText(txt).then(()=>{
+        copyBtn.textContent = '✅ Copied';
+        setTimeout(()=>{copyBtn.innerHTML = '📋 <span data-i18n="copy">Copy</span>'; render(langPick.value);}, 1200);
+      });
+    });
+
+    printBtn.addEventListener('click', (e)=>{ e.preventDefault(); window.print(); });
+
+    langPick.addEventListener('change', ()=> render(langPick.value));
+
     document.getElementById('year').textContent = new Date().getFullYear();
+    render('ru');
   </script>
 </body>
 </html>
